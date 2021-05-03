@@ -30,8 +30,9 @@
             <td>{{p.title}}</td>
             <td>{{p.price}}</td>
             <td>
-                <button class="btn btn-danger" ng-click="clickOnProduct(p)">Console info??</button>
-                <button class="btn btn-danger" ng-click="pingProduct(p.id)">Ping</button>
+              <!-- <button class="btn btn-danger" ng-click="clickOnProduct(p)">Console info??</button>
+                <button class="btn btn-danger" ng-click="pingProduct(p.id)">Ping</button> -->
+                <button class="btn btn-danger" ng-click="addItemToCart(p)">Add item to Cart</button>
             </td>
         </tr>
         </tbody>
@@ -49,6 +50,23 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+    <h1>Your Cart</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in cart">
+            <td>{{p.id}}</td>
+            <td>{{p.title}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-danger" ng-click="deleteAllItems()">Clear Cart</button>
+
 </div>
 
 </body>

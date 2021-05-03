@@ -16,5 +16,19 @@ public class Cart {
         items = new ArrayList<>();
     }
 
+    public List<Product> getAllItems(){
+        return items;
+    }
+
+    public void addItemsToCart(Product product){
+        items.add(product);
+    }
+
+    public void deleteAllItems(){
+        items.clear();
+    }
+
+
+
 
 }

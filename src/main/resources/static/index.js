@@ -34,6 +34,30 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             console.log("OK");
         });
     }
+    $scope.getCartItems = function () {
+                $http.get(contextPath + '/api/v1/cart')
+                    .then(function (response) {
+                        $scope.cart = response.data;
+                    });
+            };
+
+
+    $scope.addItemToCart = function (product){
+        $http.post(contextPath + '/api/v1/cart/addItem/', product)
+                .then(function successCallback(response) {
+                    $scope.getCartItems();
+                }, function errorCallback(response) {
+                    console.log(response.data);
+                    alert('Error: ' + response.data.messages);
+                });
+          };
+
+    $scope.deleteAllItems = function(){
+    $http.get(contextPath + '/api/v1/cart/deleteAllItems')
+                    .then(function (response) {
+                       $scope.getCartItems();
+                    });
+            };
 
     $scope.init();
 });
