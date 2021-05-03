@@ -15,8 +15,6 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
-
-
     public List<Product> findAll(){
         return productRepository.findAll();
     }
@@ -32,12 +30,5 @@ public class ProductService {
     public void deleteById(Long id){
         productRepository.deleteById(id);
     }
-    //не уверен в правильности этого метода
-    public void put(Product product){
-        Product tempProduct;
-        tempProduct = productRepository.findById(product.getId()).get();
-        tempProduct.setPrice(product.getPrice());
-        tempProduct.setTitle(product.getTitle());
-        productRepository.save(tempProduct);
-    }
+
 }
