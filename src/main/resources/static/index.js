@@ -57,14 +57,19 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     $scope.getCartItems = function () {
                 $http.get(contextPath + '/api/v1/cart')
                     .then(function (response) {
-                        $scope.cart = response.data;
+                        $scope.outCart = response.data;
                     });
             };
 
 
-    $scope.addItemToCart = function (product){
-        $http.post(contextPath + '/api/v1/cart/addItem/', product)
-                .then(function successCallback(response) {
+    $scope.addItemToCart = function (productId){
+        $http({
+        url: contextPath + '/api/v1/cart/addItem/',
+                    method: 'GET',
+                    params: {
+                        id: productId
+                    }
+        }).then(function successCallback(response) {
                     $scope.getCartItems();
                 }, function errorCallback(response) {
                     console.log(response.data);
