@@ -3,6 +3,8 @@ package ru.gb.artem.marketapril.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.artem.marketapril.dtos.CartDto;
+import ru.gb.artem.marketapril.dtos.ProductDto;
 import ru.gb.artem.marketapril.models.Product;
 import ru.gb.artem.marketapril.utils.Cart;
 
@@ -21,13 +23,14 @@ public class CartController {
     }
 
     @GetMapping
-    public List<Product> getAllItems(){
-       return cart.getAllItems();
+    public List<ProductDto> getAllItems(){
+       CartDto outCart = new CartDto(cart);
+        return outCart.getAllItems();
     }
 
-    @PostMapping("/addItem")
-    public void addItem(@RequestBody Product product){
-        cart.addItemsToCart(product);
+    @GetMapping("/addItem")
+    public void addItem(@RequestParam Long id){
+        cart.addItemsToCart(id);
     }
 
     @GetMapping("/deleteAllItems")

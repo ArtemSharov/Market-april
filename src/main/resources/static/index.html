@@ -20,23 +20,45 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Title</th>
+            <th scope="col">Category</th>
             <th scope="col">Price</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="p in products">
+        <tr ng-repeat="p in productsPage.content">
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
+            <td>{{p.categoryTitle}}</td>
             <td>{{p.price}}</td>
             <td>
               <!-- <button class="btn btn-danger" ng-click="clickOnProduct(p)">Console info??</button>
-                <button class="btn btn-danger" ng-click="pingProduct(p.id)">Ping</button> -->
-                <button class="btn btn-danger" ng-click="addItemToCart(p)">Add item to Cart</button>
+                <button class="btn btn-danger" ng-click="pingProduct(p.id)">Ping</button>-->
+                <button class="btn btn-danger" ng-click="addItemToCart(p.id)">Add item to Cart</button>
             </td>
         </tr>
         </tbody>
     </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li ng-class="productsPage.first ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" ng-click="loadPage(productsPage.number)">Пред.</a>
+            </li>
+
+            <li ng-class="productsPage.number == pageIndex - 1 ? 'page-item active' : 'page-item'"
+                ng-repeat="pageIndex in paginationArray">
+                <a class="page-link" ng-click="loadPage(pageIndex)">{{pageIndex}}</a>
+            </li>
+
+            <li ng-class="productsPage.last ? 'page-item disabled' : 'page-item'">
+                <a class="page-link" ng-click="loadPage(productsPage.number + 2)">След.</a>
+            </li>
+        </ul>
+    </nav>
+
+    <button class="btn btn-primary" ng-click="loadPage(1)">Refresh</button>
+
+    <h5>Add new product</h5>
     <div>
         <form novalidate ng-submit="createNewProduct()">
             <div class="mb-3">
@@ -59,7 +81,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="p in cart">
+        <tr ng-repeat="p in outCart">
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
         </tr>
