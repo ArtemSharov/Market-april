@@ -1,7 +1,5 @@
 package ru.gb.artem.marketapril.services;
 
-
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +11,6 @@ import ru.gb.artem.marketapril.models.Category;
 import ru.gb.artem.marketapril.models.Product;
 import ru.gb.artem.marketapril.repositories.ProductRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,7 +22,8 @@ public class ProductService {
     public Page<Product> findPage(int page, int pageSize) {
         return productRepository.findAllBy(PageRequest.of(page, pageSize));
     }
-    public Optional<Product> findById(Long id){
+
+    public Optional<Product> findById(Long id) {
         return productRepository.findById(id);
     }
 
@@ -50,8 +48,7 @@ public class ProductService {
         return new ProductDto(product);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
-
 }

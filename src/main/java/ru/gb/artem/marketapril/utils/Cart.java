@@ -1,41 +1,59 @@
 package ru.gb.artem.marketapril.utils;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.gb.artem.marketapril.error_handling.ResourceNotFoundException;
+import ru.gb.artem.marketapril.models.OrderItem;
 import ru.gb.artem.marketapril.models.Product;
-import ru.gb.artem.marketapril.repositories.ProductRepository;
+import ru.gb.artem.marketapril.services.ProductService;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
+@Data
 @RequiredArgsConstructor
 public class Cart {
-    private List<Product> items;
-    private final ProductRepository productRepository;
+    private final ProductService productService;
+    private List<OrderItem> items;
+    private BigDecimal sum;
 
     @PostConstruct
     public void init() {
         items = new ArrayList<>();
     }
 
-    public List<Product> getAllItems(){
-        return items;
+    public void addToCart(Long id) {
+        for (OrderItem orderItem : items) {
+            if (orderItem.getProduct().getId().equals(id)) {
+                orderItem.incrementQuantity();
+                recalculate();
+                return;
+            }
+        }
+
+        Product product = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product doesn't exists id: " + id + " (add to cart)"));
+        items.add(new OrderItem(product));
+        recalculate();
     }
 
-    public void addItemsToCart(Long id){
-        if(productRepository.findById(id).isPresent()){
-            items.add(productRepository.findById(id).get());
-        } else throw new ResourceNotFoundException("Product doesn't exists id: " + id + " (for add)");
-    }
-
-    public void deleteAllItems(){
+    public void clear() {
         items.clear();
+        recalculate();
     }
 
+    private void recalculate() {
+        sum = BigDecimal.ZERO;
+        for (OrderItem oi : items) {
+            sum = sum.add(oi.getPrice());
+        }
+    }
 
-
-
+    public List<OrderItem> getItems() {
+        return Collections.unmodifiableList(items);
+    }
 }

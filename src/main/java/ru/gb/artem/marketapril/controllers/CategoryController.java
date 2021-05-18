@@ -1,13 +1,13 @@
 package ru.gb.artem.marketapril.controllers;
 
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.gb.artem.marketapril.error_handling.ResourceNotFoundException;
 import ru.gb.artem.marketapril.models.Category;
 import ru.gb.artem.marketapril.services.CategoryService;
+
+
 
 @RestController
 @RequiredArgsConstructor
