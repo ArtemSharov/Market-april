@@ -42,7 +42,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.clickOnProduct = function (product) {
         console.log(product);
-    }
+    };
 
     $scope.loadCart = function (page) {
         $http({
@@ -60,7 +60,27 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         }).then(function (response) {
             $scope.loadCart();
         });
-    }
+    };
+
+
+     $scope.getOrderItems = function (){
+         $http({
+                     url: '/market/api/v1/orders',
+                     method: 'GET'
+                 }).then(function (response) {
+                     $scope.orderDto = response.data;
+                 });
+    };
+
+    $scope.createOrder = function (){
+     $http({
+                 url: '/market/api/v1/orders',
+                 method: 'POST'
+             }).then(function (response) {
+                  $scope.getOrderItems();
+             });
+         }
+
 
     $scope.generatePagesIndexes = function (startPage, endPage) {
         let arr = [];

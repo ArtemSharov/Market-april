@@ -92,7 +92,7 @@
     </nav>
 
     <p></p>
-    <h4>Cart</h4>
+    <h4>Корзина</h4>
     <table class="table">
         <thead>
         <tr>
@@ -114,6 +114,26 @@
             <td>Итого</td>
             <td></td>
             <td>{{cartDto.sum + ' руб.'}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p></p>
+    <button class="btn btn-primary" ng-click="createOrder()">Create Order</button>
+    <h4>Order</h4>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Order</th>
+            <th scope="col">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="o in orderDto">
+            <td>{{o.id}}</td>
+            <td>{{o.orderItems}}</td>
+            <td>{{o.price}}</td>
         </tr>
         </tbody>
     </table>

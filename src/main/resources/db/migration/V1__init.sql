@@ -61,12 +61,22 @@ values
 ('Milk', 80.40, 1),
 ('Cheese', 325.00, 1);
 
-create table order_items (
-    id           bigserial primary key,
-    product_id                      bigint references products (id),
-    quantity     int,
-    price_per_product               numeric (8, 2),
-    price        numeric (8, 2),
+create table orders (
+    id                              bigserial primary key,
+    user_id                         bigint references users (id),
+    price                           numeric (8, 2),
     created_at                      timestamp default current_timestamp,
     updated_at                      timestamp default current_timestamp
 );
+
+create table order_items (
+    id                              bigserial primary key,
+    product_id                      bigint references products (id),
+    order_id                        bigint references orders (id),
+    quantity                        int,
+    price_per_product               numeric (8, 2),
+    price                           numeric (8, 2),
+    created_at                      timestamp default current_timestamp,
+    updated_at                      timestamp default current_timestamp
+);
+
