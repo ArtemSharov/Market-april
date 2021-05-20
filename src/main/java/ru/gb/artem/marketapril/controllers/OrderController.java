@@ -27,7 +27,7 @@ public class OrderController {
     @PostMapping
     public void createNewOrder(Principal principal) {
         User user = userService.findByUsername(principal.getName()).get();
-        orderService.createOrder(user);
+        orderService.createOrderForCurrentUser(user);
     }
 
     @GetMapping

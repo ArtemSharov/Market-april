@@ -29,20 +29,16 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         });
     };
 
-    $scope.createNewProduct = function () {
-        $http.post(contextPath + '/api/v1/products', $scope.newProduct)
-            .then(function successCallback(response) {
-                $scope.loadPage(1);
-                $scope.newProduct = null;
-            }, function errorCallback(response) {
-                console.log(response.data);
-                alert('Error: ' + response.data.messages);
-            });
-    };
-
-    $scope.clickOnProduct = function (product) {
-        console.log(product);
-    };
+    // $scope.createNewProduct = function () {
+    //     $http.post(contextPath + '/api/v1/products', $scope.newProduct)
+    //         .then(function successCallback(response) {
+    //             $scope.loadPage(1);
+    //             $scope.newProduct = null;
+    //         }, function errorCallback(response) {
+    //             console.log(response.data);
+    //             alert('Error: ' + response.data.messages);
+    //         });
+    // };
 
     $scope.loadCart = function (page) {
         $http({
@@ -60,27 +56,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         }).then(function (response) {
             $scope.loadCart();
         });
-    };
-
-
-     $scope.getOrderItems = function (){
-         $http({
-                     url: '/market/api/v1/orders',
-                     method: 'GET'
-                 }).then(function (response) {
-                     $scope.orderDto = response.data;
-                 });
-    };
-
-    $scope.createOrder = function (){
-     $http({
-                 url: '/market/api/v1/orders',
-                 method: 'POST'
-             }).then(function (response) {
-                  $scope.getOrderItems();
-             });
-         }
-
+    }
 
     $scope.generatePagesIndexes = function (startPage, endPage) {
         let arr = [];
@@ -99,6 +75,8 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
                     $scope.user.username = null;
                     $scope.user.password = null;
+
+                    $scope.showMyOrders();
                 }
             }, function errorCallback(response) {
             });
@@ -130,9 +108,38 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         });
     };
 
+    $scope.showMyOrders = function () {
+        $http({
+            url: contextPath + '/api/v1/orders',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.myOrders = response.data;
+        });
+    };
+
+    $scope.createOrder = function () {
+        $http({
+            url: contextPath + '/api/v1/orders',
+            method: 'POST'
+        }).then(function (response) {
+            $scope.showMyOrders();
+            $scope.loadCart();
+        });
+    };
+
+    $scope.clearCart = function () {
+        $http({
+            url: contextPath + '/api/v1/cart/clear',
+            method: 'GET'
+        }).then(function (response) {
+            $scope.loadCart();
+        });
+    };
+
     if ($localStorage.aprilMarketCurrentUser) {
         $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.aprilMarketCurrentUser.token;
-    }
+        $scope.showMyOrders();
+    };
 
     $scope.loadPage(1);
     $scope.loadCart();

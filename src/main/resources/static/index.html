@@ -93,7 +93,7 @@
 
     <p></p>
     <h4>Корзина</h4>
-    <table class="table">
+    <table class="table" ng-if="cartDto.items.length > 0">
         <thead>
         <tr>
             <th scope="col">Название</th>
@@ -117,42 +117,51 @@
         </tr>
         </tbody>
     </table>
+    <span ng-if="cartDto.items.length == 0">Ваша корзина пуста</span>
+    <button ng-click="clearCart()" class="btn btn-primary" ng-if="cartDto.items.length > 0">Очистить корзину</button>
 
-    <p></p>
-    <button class="btn btn-primary" ng-click="createOrder()">Create Order</button>
-    <h4>Order</h4>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Order</th>
-            <th scope="col">Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="o in orderDto">
-            <td>{{o.id}}</td>
-            <td>{{o.orderItems}}</td>
-            <td>{{o.price}}</td>
-        </tr>
-        </tbody>
-    </table>
 
-<!--    <p></p>-->
-<!--    <h4>Add new product</h4>-->
-<!--    <div>-->
-<!--        <form novalidate ng-submit="createNewProduct()">-->
-<!--            <div class="mb-3">-->
-<!--                <label for="inputTitle" class="form-label">Title</label>-->
-<!--                <input type="text" class="form-control" ng-model="newProduct.title" id="inputTitle" aria-describedby="titleHelp">-->
-<!--            </div>-->
-<!--            <div class="mb-3">-->
-<!--                <label for="inputPrice" class="form-label">Price</label>-->
-<!--                <input type="number" class="form-control" ng-model="newProduct.price" id="inputPrice" aria-describedby="priceHelp">-->
-<!--            </div>-->
-<!--            <button type="submit" class="btn btn-primary">Submit</button>-->
-<!--        </form>-->
-<!--    </div>-->
+
+    <div ng-if="isUserLoggedIn()">
+        <p></p>
+        <h4>Оформление заказа</h4>
+        <button ng-click="createOrder()" class="btn btn-primary" ng-if="cartDto.items.length > 0">Оформить заказ</button>
+
+        <p></p>
+        <h4>Мои заказы</h4>
+        <span ng-if="myOrders.length == 0">Вы пока не сделали ни одного заказа</span>
+        <table class="table" ng-if="myOrders.length > 0">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Цена</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="order in myOrders">
+                <td>{{order.id}}</td>
+                <td>{{order.description}}</td>
+                <td>{{order.price}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--    <p></p>-->
+    <!--    <h4>Add new product</h4>-->
+    <!--    <div>-->
+    <!--        <form novalidate ng-submit="createNewProduct()">-->
+    <!--            <div class="mb-3">-->
+    <!--                <label for="inputTitle" class="form-label">Title</label>-->
+    <!--                <input type="text" class="form-control" ng-model="newProduct.title" id="inputTitle" aria-describedby="titleHelp">-->
+    <!--            </div>-->
+    <!--            <div class="mb-3">-->
+    <!--                <label for="inputPrice" class="form-label">Price</label>-->
+    <!--                <input type="number" class="form-control" ng-model="newProduct.price" id="inputPrice" aria-describedby="priceHelp">-->
+    <!--            </div>-->
+    <!--            <button type="submit" class="btn btn-primary">Submit</button>-->
+    <!--        </form>-->
+    <!--    </div>-->
 </div>
 </body>
 </html>

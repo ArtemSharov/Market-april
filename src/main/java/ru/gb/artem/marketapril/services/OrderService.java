@@ -22,11 +22,14 @@ public class OrderService {
 
 
     @Transactional
-    public Order createOrder(User user){
+    public Order createOrderForCurrentUser(User user){
         Order order = new Order();
         order.setUser(user);
         order.setItems(cart.getItems());
         order.setPrice(cart.getSum());
+        for (OrderItem oi : cart.getItems()) {
+            oi.setOrder(order);
+        }
        orderRepository.save(order);
        cart.clear();
        return order;

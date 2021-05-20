@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class OrderDto {
     private Long id;
-    private String orderItems;
+    private String description;
     private BigDecimal price;
 
     public OrderDto(Order order) {
         this.id = order.getId();
-        this.orderItems = order.getItems().stream().map(OrderItemDto::new).collect(Collectors.toList()).toString();
+        this.description = order.getItems().stream().map(o -> o.getProduct().getTitle() + " x" + o.getQuantity()).collect(Collectors.joining(", "));
         this.price = order.getPrice();
     }
 }
