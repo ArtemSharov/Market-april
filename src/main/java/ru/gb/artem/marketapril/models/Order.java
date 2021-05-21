@@ -33,6 +33,12 @@ public class Order {
     @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "contact_phone")
+    private String contactPhone;
+
+    @Column(name = "delivery_address")
+    private String deliveryAddress;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -40,4 +46,6 @@ public class Order {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+
 }

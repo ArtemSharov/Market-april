@@ -66,7 +66,9 @@ create table orders (
     user_id                         bigint references users (id),
     price                           numeric (8, 2),
     created_at                      timestamp default current_timestamp,
-    updated_at                      timestamp default current_timestamp
+    updated_at                      timestamp default current_timestamp,
+    contact_phone                   varchar(255),
+    delivery_address                varchar(255)
 );
 
 create table order_items (
