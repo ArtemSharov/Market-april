@@ -122,22 +122,27 @@
 
 
 
-    <div ng-if="isUserLoggedIn()">
+    <div ng-show="isUserLoggedIn()">
         <p></p>
         <h4>Оформление заказа</h4>
 
-        <div ng-if="cartDto.items.length > 0">
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Номер телефона</label>
-            <input type="tel" class="form-control" id="exampleFormControlInput1" placeholder="+7(___)-___-____">
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Адрес доставки</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
 
-        <button ng-click="createOrder()" class="btn btn-primary">Оформить заказ</button>
-        </div>
+        <div ng-show="cartDto.items.length > 0">
+
+                <div>
+                    <form novalidate ng-submit="createOrder()">
+                        <div class="mb-3">
+                            <label for="contactPhone" class="form-label">Контактный телефон</label>
+                            <input type="number" class="form-control" ng-model="newOrder.contactPhone" id="contactPhone" aria-describedby="titleHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="deliveryAddress" class="form-label">Адрес доставки</label>
+                            <input type="text" class="form-control" ng-model="newOrder.deliveryAddress" id="deliveryAddress" aria-describedby="priceHelp">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
         <p></p>
         <h4>Мои заказы</h4>
         <span ng-if="myOrders.length == 0">Вы пока не сделали ни одного заказа</span>
@@ -173,6 +178,7 @@
     <!--            <button type="submit" class="btn btn-primary">Submit</button>-->
     <!--        </form>-->
     <!--    </div>-->
+</div>
 </div>
 </body>
 </html>

@@ -118,14 +118,17 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     };
 
     $scope.createOrder = function () {
-        $http({
-            url: contextPath + '/api/v1/orders',
-            method: 'POST'
-        }).then(function (response) {
+         $http.post(contextPath + '/api/v1/orders', $scope.newOrder)
+         .then(function (response) {
             $scope.showMyOrders();
             $scope.loadCart();
+            $scope.newOrder = null;
         });
     };
+
+
+
+
 
     $scope.clearCart = function () {
         $http({

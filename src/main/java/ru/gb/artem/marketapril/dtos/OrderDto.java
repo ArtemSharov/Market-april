@@ -13,6 +13,8 @@ public class OrderDto {
     private Long id;
     private String description;
     private BigDecimal price;
+    private String contactPhone;
+    private String deliveryAddress;
 
     public OrderDto(Order order) {
         this.id = order.getId();
