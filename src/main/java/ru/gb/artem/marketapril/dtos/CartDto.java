@@ -1,25 +1,20 @@
 package ru.gb.artem.marketapril.dtos;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import ru.gb.artem.marketapril.models.Product;
 import ru.gb.artem.marketapril.utils.Cart;
 
-import java.util.ArrayList;
+
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
-@NoArgsConstructor
 public class CartDto {
-    List<ProductDto> itemsDto = new ArrayList<>();
+    private List<OrderItemDto> items;
+    private BigDecimal sum;
 
-    public CartDto(Cart cart){
-        for (Product items : cart.getAllItems()) {
-            ProductDto productDto = new ProductDto(items);
-           this.itemsDto.add(productDto);
-        }
-    }
-    public List<ProductDto> getAllItems(){
-        return itemsDto;
+    public CartDto(Cart cart) {
+        this.items = cart.getItems().stream().map(OrderItemDto::new).collect(Collectors.toList());
+        this.sum = cart.getSum();
     }
 }
