@@ -14,6 +14,7 @@ import ru.gb.artem.marketapril.utils.Cart;
 @Slf4j
 public class CartController {
     private final CartService cartService;
+    private final Cart cart;
 
 
     @GetMapping("/add/{productId}")
@@ -23,11 +24,11 @@ public class CartController {
 
     @GetMapping("/clear")
     public void clearCart() {
-        cartService.clear();
+        cart.clear();
     }
 
     @GetMapping
     public CartDto getCart() {
-        return new CartDto(cartService.getCart());
+        return new CartDto(cart);
     }
 }

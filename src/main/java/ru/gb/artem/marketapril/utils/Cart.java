@@ -30,5 +30,27 @@ public class Cart implements Serializable {
         items = new ArrayList<>();
     }
 
+    public void clear() {
+        items.clear();
+        recalculate();
+    }
+
+    public void recalculate() {
+        sum = BigDecimal.ZERO;
+        for (OrderItem oi : items) {
+            sum = sum.add(oi.getPrice());
+        }
+    }
+
+    public BigDecimal getSum(){
+        return sum;
+    }
+
+
+
+    public List<OrderItem> getItems() {
+        return Collections.unmodifiableList(items);
+    }
+
 
 }

@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final CartService cart;
+    private final Cart cart;
 
     public List<Order> findAllByUser(User user) {
         return orderRepository.findAllByUser(user);
