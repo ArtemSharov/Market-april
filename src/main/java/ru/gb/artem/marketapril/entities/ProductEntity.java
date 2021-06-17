@@ -1,20 +1,21 @@
-package ru.gb.artem.marketapril.models;
+package ru.gb.artem.marketapril.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import ru.gb.artem.marketapril.models.Category;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "categories")
-@Data
+@Table(name = "products")
 @NoArgsConstructor
-public class Category implements Serializable {
+@Data
+public class ProductEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -23,8 +24,12 @@ public class Category implements Serializable {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "category")
-    private List<Product> products;
+    @Column(name = "price")
+    private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Column(name = "created_at")
     @CreationTimestamp

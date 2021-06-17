@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.artem.marketapril.dtos.CartDto;
+import ru.gb.artem.marketapril.services.CartService;
 import ru.gb.artem.marketapril.utils.Cart;
 
 
@@ -12,11 +13,13 @@ import ru.gb.artem.marketapril.utils.Cart;
 @RequiredArgsConstructor
 @Slf4j
 public class CartController {
+    private final CartService cartService;
     private final Cart cart;
+
 
     @GetMapping("/add/{productId}")
     public void addToCart(@PathVariable(name = "productId") Long id) {
-        cart.addToCart(id);
+        cartService.addToCart(id);
     }
 
     @GetMapping("/clear")

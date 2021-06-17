@@ -1,9 +1,10 @@
-package ru.gb.artem.marketapril.models;
+package ru.gb.artem.marketapril.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import ru.gb.artem.marketapril.models.Product;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import java.util.List;
 @Table(name = "categories")
 @Data
 @NoArgsConstructor
-public class Category implements Serializable {
+public class CategoryEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

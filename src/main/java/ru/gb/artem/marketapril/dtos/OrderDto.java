@@ -13,12 +13,10 @@ public class OrderDto {
     private Long id;
     private String description;
     private BigDecimal price;
-    private String contactPhone;
-    private String deliveryAddress;
 
     public OrderDto(Order order) {
         this.id = order.getId();
-        this.description = order.getItems().stream().map(o -> o.getProduct().getTitle() + " x" + o.getQuantity()).collect(Collectors.joining(", "));
         this.price = order.getPrice();
+        this.description = order.getItems().stream().map(o -> o.getProduct().getTitle() + " x" + o.getQuantity()).collect(Collectors.joining(", "));
     }
 }
